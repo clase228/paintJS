@@ -9,9 +9,16 @@ const colors =document.getElementsByClassName('jsColor')
 const col =document.querySelectorAll('#jsColor')
 
 
-jsPx.addEventListener('click', function () {
-    console.log(col);
-})
+    document.querySelector('.controls__colors').addEventListener('click', function(e) {
+        if (e.target.classList.contains('controls__color')) {
+        const selected = this.querySelector('.active');
+        if (selected) {
+            selected.classList.remove('active');
+        }
+        e.target.classList.add('active');
+        }
+    });
+
 
 
 const INITIA_COLOR = '#2c2c2c'
@@ -20,6 +27,7 @@ const CANVAS_SIZE = 700
 
 canvas.width  =CANVAS_SIZE;
 canvas.height = CANVAS_SIZE;
+canvas.style.cursor = "url('img1.png'), pointer"
 
 
 ctx.fillStyle = '#fff'
@@ -56,7 +64,7 @@ function onMouseMove(event){
 }
 
 
-function onMouseDown(event){
+function onMouseDown(e){
     painting = true;
 }
 
@@ -85,10 +93,11 @@ function handleModeClick() {
     if(filling === true){
         filling = false;
         mode.innerHTML= 'Заливка'
+        canvas.style.cursor = "url('img1.png'), pointer"
     }else{
         filling = true;
         mode.innerHTML= 'Кисть';
-        
+        canvas.style.cursor = "url('fill.png'), pointer"
     }
 }
 
@@ -130,7 +139,6 @@ if (canvas) {
     canvas.addEventListener('click', handleCanvasClick);
     canvas.addEventListener('contextmenu', handleCM);
 } 
-
 
 Array.from(colors).forEach(color => color.addEventListener(('click') ,handleColor))
 
